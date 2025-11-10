@@ -1,0 +1,12 @@
+@import 'tailwindcss';
+
+/* Set default text color to near-black and default font family */
+body {
+  /* Set default text color to the nearest Tailwind "black" (gray-900) */
+  @apply text-black;
+
+  @apply bg-white;
+
+  @apply font-sans;
+}
+
