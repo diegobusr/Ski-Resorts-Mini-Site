@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: 'Ski Resorts',
-  description: ' Discover the best ski resorts around the world',
+  description: 'Discover the best ski resorts around the world',
 };
 
 export default function RootLayout({
@@ -91,4 +91,3 @@ export default function RootLayout({
     </html>
   );
 }
-
