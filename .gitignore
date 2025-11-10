@@ -1,0 +1,72 @@
+################################
+## Next.js / Node.js
+################################
+
+# Dependency directories
+/node_modules
+/npm-debug.log
+/yarn-error.log
+/pnpm-debug.log*
+
+# Next.js build output
+/.next/
+/out/
+
+# Production/Build files
+/dist/
+/build/
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.production.local
+.env.test
+
+# IDE files (VS Code)
+.vscode/
+
+# Package manager lock files (optional, but good practice to ignore if using multiple)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+
+################################
+## C# / Visual Studio / .NET
+################################
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio 2017+ cache/options directory
+# Should generally be excluded, as it contains user-specific and temporary files.
+.vs/
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Tooling files
+*.log
+*.ncb
+*.bak
+*.cache
+*.sdf
+*.vshost.exe
+
+# NuGet packages
+**/packages/
+# Only uncomment this if you commit packages, which is discouraged:
+# !**/packages/repositories.config
+
+# Rider/JetBrains IDE files
+.idea/
+
+# Windows desktop storage
+Desktop.ini
