@@ -51,10 +51,8 @@ const Home = async () => {
         </div>
       </section>
 
-      {/* Metrics Bar */}
       <MetricsBar metrics={metrics} />
 
-      {/* Featured Resorts Carousel */}
       <section className='py-8 bg-white'>
         <div className='container mx-auto px-4'>
           <h2 className='text-4xl font-bold text-center mb-12 text-gray-900'>

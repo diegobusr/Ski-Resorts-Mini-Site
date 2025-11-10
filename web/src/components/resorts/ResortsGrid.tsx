@@ -14,39 +14,32 @@ const ResortsGrid = ({ resorts }: Props) => {
   const [region, setRegion] = useState('all');
   const [sortBy, setSortBy] = useState('name');
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
-  const [favorites, setFavorites] = useState<Set<string>>(new Set());
+  const [favorites, setFavorites] = useState<string[]>([]);
 
-  // Load favorites from localStorage on mount
   useEffect(() => {
     const stored = localStorage.getItem('resort-favorites');
     if (stored) {
       try {
         const parsed = JSON.parse(stored);
         // eslint-disable-next-line react-hooks/set-state-in-effect
-        setFavorites(new Set(parsed));
+        setFavorites(parsed);
       } catch (e) {
         console.error('Failed to parse favorites:', e);
       }
     }
   }, []);
 
-  // Save favorites to localStorage whenever they change
   useEffect(() => {
-    localStorage.setItem(
-      'resort-favorites',
-      JSON.stringify(Array.from(favorites))
-    );
+    localStorage.setItem('resort-favorites', JSON.stringify(favorites));
   }, [favorites]);
 
   const toggleFavorite = (resortId: string) => {
     setFavorites((prev) => {
-      const next = new Set(prev);
-      if (next.has(resortId)) {
-        next.delete(resortId);
+      if (prev.includes(resortId)) {
+        return prev.filter((id) => id !== resortId);
       } else {
-        next.add(resortId);
+        return [...prev, resortId];
       }
-      return next;
     });
   };
 
@@ -69,31 +62,44 @@ const ResortsGrid = ({ resorts }: Props) => {
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     let list = resorts.filter((r) => {
-      if (showFavoritesOnly && !favorites.has(r.id)) return false;
+      if (showFavoritesOnly && !favorites.includes(r.id)) return false;
       if (country !== 'all' && r.country !== country) return false;
       if (region !== 'all' && r.region !== region) return false;
       if (!q) return true;
-      return (
-        r.name.toLowerCase().includes(q) ||
-        (r.shortDescription || '').toLowerCase().includes(q) ||
-        (r.country || '').toLowerCase().includes(q) ||
-        (r.region || '').toLowerCase().includes(q)
-      );
+      return r.name.toLowerCase().includes(q);
     });
 
     switch (sortBy) {
       case 'name':
-        list = list.sort((a, b) => a.name.localeCompare(b.name));
+        list = list.sort((resortA, resortB) => {
+          return resortA.name.localeCompare(resortB.name);
+        });
         break;
+
       case 'price':
-        list = list.sort((a, b) => (a.ticketPrice ?? 0) - (b.ticketPrice ?? 0));
+        list = list.sort((resortA, resortB) => {
+          const priceA = resortA.ticketPrice ?? 0;
+          const priceB = resortB.ticketPrice ?? 0;
+          return priceA - priceB;
+        });
         break;
+
       case 'elevation':
-        list = list.sort((a, b) => (b.elevation ?? 0) - (a.elevation ?? 0));
+        list = list.sort((resortA, resortB) => {
+          const elevationA = resortA.elevation ?? 0;
+          const elevationB = resortB.elevation ?? 0;
+          return elevationB - elevationA;
+        });
         break;
+
       case 'snowfall':
-        list = list.sort((a, b) => (b.snowfall ?? 0) - (a.snowfall ?? 0));
+        list = list.sort((resortA, resortB) => {
+          const snowfallA = resortA.snowfall ?? 0;
+          const snowfallB = resortB.snowfall ?? 0;
+          return snowfallB - snowfallA;
+        });
         break;
+
       default:
         break;
     }
@@ -210,7 +216,7 @@ const ResortsGrid = ({ resorts }: Props) => {
           <ResortCard
             key={r.id}
             resort={r}
-            isFavorite={favorites.has(r.id)}
+            isFavorite={favorites.includes(r.id)}
             onToggleFavorite={() => toggleFavorite(r.id)}
           />
         ))}
@@ -220,4 +226,3 @@ const ResortsGrid = ({ resorts }: Props) => {
 };
 
 export default ResortsGrid;
-
