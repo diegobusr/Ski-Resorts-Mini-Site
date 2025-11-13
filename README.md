@@ -7,29 +7,36 @@ Follow these steps to get both the API and the web application running on your l
 1. Prerequisites
 You must have the following installed:
 
-- Node.js (v18+)
-- .NET SDK (v7.0 or v8.0)
-- Git
+* **Node.js** (v18+)
+* **.NET SDK** (v7.0 or v8.0)
+* **Git**
 
 2. Clone the Repository
  Clone the project and navigate into the root directory:
 
-Bash or your cli
-git clone https://github.com/diegobusr/Ski-Resorts-Mini-Site.git
-cd Ski-Resorts-Mini-Site
+```bash or your cli
+  git clone https://github.com/diegobusr/Ski-Resorts-Mini-Site.git
+  cd Ski-Resorts-Mini-Site 
+```
 
 3. Run the C# API (Backend)
 The API runs on port 5000.
 
 Bash
 # Navigate to the API project folder
+```
 cd api
+```
 
 # Restore project dependencies
+```
 dotnet restore
+```
 
 # Run the application
+```
 dotnet run
+```
 The API should now be running, typically accessible at http://localhost:5000.
 
 or Navigate to the api folder within the cloned repository.
@@ -42,14 +49,20 @@ The frontend runs on port 3000.
 Bash
 
 # Navigate back to the root and then into the web project folder
+```
 cd ..
 cd web
+```
 
 # Install dependencies (using npm, adjust if you use yarn/pnpm)
+```
 npm install
+```
 
 # Start the development server
+```
 npm run dev
+```
 The web application should now be accessible at http://localhost:3000.
 
 🏗️ Brief Architecture Overview & Trade-offs
