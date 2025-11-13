@@ -1,6 +1,7 @@
 import { Resort, Metrics } from '@/types/Resort';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
 
 export async function getResorts(): Promise<Resort[]> {
   try {
@@ -49,4 +50,3 @@ export async function getMetrics(): Promise<Metrics | null> {
     return null;
   }
 }
-
