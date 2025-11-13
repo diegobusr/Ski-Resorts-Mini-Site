@@ -53,8 +53,11 @@ npm run dev
 The web application should now be accessible at http://localhost:3000.
 
 🏗️ Brief Architecture Overview & Trade-offs
-The project uses a standard two-tier (Frontend/Backend) architecture. The frontend built with Next.js, provides a dynamic user interface and handles all the client and server (Nextjs) rending. 
+The project uses a standard two-tier (Frontend/Backend) architecture. The frontend built with Next.js, provides a dynamic user interface and handles all the client and server (Nextjs) rending.
+The app follows a fairly standard modern Next.js 13+ “app router” setup: high-level layout and metadata live in src/app, while feature-specific server components sit under route segments (src/app/resorts/[slug], etc.), and all reusable UI lives in src/components (with client components flagged by 'use client' for interactivity like the ResortsGrid filters and favorites). Shared logic is split cleanly into src/lib for data fetching and helpers, plus src/types for TypeScript contracts. This separation keeps build-time server rendering fast and lets the mostly static resort details be fetched once on the server, but the app still leans on client-side state for filters/favorites, which increases bundle size and requires careful localStorage handling. Overall it’s a simple, maintainable structure, though pushing more state to the server or consolidating the Swiper UI helpers could reduce duplication and improve initial load performance.
+
 The backend, a C# Web API, serves as the data layer, handling requests for ski resort information and managing any business logic.
+The API follows a conventional layered architecture—controllers expose HTTP endpoints, services contain business logic, and repositories. This separation keeps responsibilities clear and makes testing and maintenance straightforward.
 
 A possible trade-off of this setup is the increased initial complexity compared to an all-in-one framework, as it requires managing two separate servers, build processes and deployment pipelines. This modularity is beneficial for future growth, as it allows either the frontend to be swapped out (for example a mobile app) or the backend to be integrated with different clients without requiring a full system remake.
 
@@ -70,12 +73,12 @@ Web
 - Loading states: The app needs skeleton usage for the loading states.
 - Accesibility: Need to check the whole code to improve all the accesibility of the elements in the app.
 - Metadata: Could be improved as well.
-- Styling: Could improved A LOT.
+- Styling: Could be improved A LOT.
 - Testing: add testing.
 
 Api
 - API Validation and Error Handling: Add comprehensive input validation to the C# API endpoints and implement a more robust, standardized error response structure.
 - Write code in a more standard way.
-- The api is not secured enough.
+- The api is not secured.
 
 <img width="473" height="1126" alt="image" src="https://github.com/user-attachments/assets/52f415a1-4702-4d34-8154-50d633d38f05" />
